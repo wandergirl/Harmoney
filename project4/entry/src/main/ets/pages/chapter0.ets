@@ -1,0 +1,132 @@
+/*
+ * BY AUTHER:  wandergirlish
+ * CREATE BY: DEVECOSTUDIO
+ * TIME: 10:50
+ * DATA: 2025/3/19
+ *
+ * */
+
+@Entry
+@Component
+struct Index {
+  @State count:number=1
+  @State oldprice:number=9999
+  @State newprice:number=9.9
+  build() {
+    Column(){
+      Row(){
+        Image($r('app.media.product1'))
+          .width('40%')
+          .borderRadius(10)
+        Column(){
+          Text('冲销量1000ml缤纷八果水果捞')
+            .width('100%')
+            .fontSize(18)
+            .margin(10)
+            .fontWeight(500)
+          Text('含一份折扣商品')
+            .width('100%')
+            .fontColor('#a0a0a0')
+            .fontSize(14)
+            .margin({left:20})
+          Blank()
+          Row(){
+            Row({space:5}){
+              Text(){
+                Span('￥')
+                  .fontSize(13)
+                  .fontColor(Color.Red)
+                Span(this.newprice.toFixed(2))
+                  .fontColor(Color.Red)
+              }
+              .margin({left:10})
+              .fontColor('#ff4000')
+              Text(){
+                Span('￥')
+                  .fontSize(13)
+                Span(this.oldprice.toFixed(2))
+                  .fontSize(13)
+              }
+              .fontColor('#999')
+              .decoration({type:TextDecorationType.LineThrough,color:'#999'})
+            }
+            .margin({bottom:10})
+            Row(){
+              Text('-')
+                .width(20)
+                .border({width:1,color:'#999',radius:{topLeft:3,bottomLeft:3}})
+                .textAlign(TextAlign.Center)
+                .onClick(()=>{
+                  if(this.count>1){
+                    this.count--
+                  }
+                  else{
+                    AlertDialog.show({
+                      message:'最小值为1，不能再减了'
+                    })
+                  }
+                })
+              Text(this.count.toString())
+                .width(30)
+                .border({width:{top:1,bottom:1},color:'#999'})
+                .textAlign(TextAlign.Center)
+              Text('+')
+                .width(20)
+                .border({width:1,color:'#999',radius:{bottomRight:3,topRight:3}})
+                .textAlign(TextAlign.Center)
+                .onClick(()=>{
+                  this.count++
+                })
+            }
+            .margin({bottom:10})
+          }
+          .justifyContent(FlexAlign.SpaceBetween)
+          .width('100%')
+        }
+        .width('60%')
+        .height('100%')
+
+      }
+      .width('100%')
+      .height(100)
+      Blank()
+      Row(){
+        Column({space:5}){
+          Text(){
+            Span('已选两件,')
+              .fontColor('#a0a0a0')
+              .fontSize(16)
+            Span('合计:')
+            Span('￥')
+              .fontColor(Color.Red)
+            Span((this.newprice*this.count).toFixed(2))
+              .fontColor(Color.Red)
+          }
+          .width('100%')
+          .textAlign(TextAlign.End)
+          Text(){
+            Span('共减:￥')
+              .fontColor(Color.Red)
+            Span(((this.oldprice-this.newprice)*this.count).toFixed(2))
+              .fontColor(Color.Red)
+          }
+          .fontSize(14)
+          .width('100%')
+          .textAlign(TextAlign.End)
+        }
+        .width('60%')
+        .justifyContent(FlexAlign.End)
+        Button('结算外卖')
+          .fontColor(Color.Black)
+          .margin({left:10,right:10})
+          .backgroundColor('#fdd744')
+      }
+      .width('100%')
+      .height(80)
+      .justifyContent(FlexAlign.End)
+    }
+    .width('100%')
+    .height('100%')
+    .padding(10)
+  }
+}
